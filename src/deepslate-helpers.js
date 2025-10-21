@@ -65,9 +65,9 @@ function loadDeepslateResources(textureImage) {
   return deepslateResources;
 }
 
-function structureFromLitematic(litematic, y_min=0, y_max=-1) {
-  var blocks = litematic.regions[0].blocks;
-  var blockPalette = litematic.regions[0].blockPalette;
+function structureFromBlueprint(blueprint, y_min=0, y_max=-1) {
+  var blocks = blueprint.regions[0].blocks;
+  var blockPalette = blueprint.regions[0].blockPalette;
 
   // Could probably make an intermediate block array type for this
   // Does js have good 3D arrays?
