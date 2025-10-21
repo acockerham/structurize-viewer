@@ -1,8 +1,11 @@
-var structureLitematic;
+var structureBlueprint;
 
 function loadAndProcessFile(file) {
-   
-   if (deepslateResources == null) {return;}
+   console.log('in loadAndProcessFile');
+   if (deepslateResources == null) {
+      console.log('deepslateResources are null', deepslateResources);
+      return;}
+
 
    // Remove input form to stop people submitting twice
    const elem = document.getElementById('file-loader-panel');
@@ -16,20 +19,20 @@ function loadAndProcessFile(file) {
       //console.log(buffer);
 
       const nbtdata = deepslate.readNbt(new Uint8Array(reader.result));//.result; // Don't care about .compressed
-      console.log("Loaded litematic with NBT data:")
+      console.log("Loaded blueprint with NBT data:")
       console.log(nbtdata.value);
-      structureLitematic = readLitematicFromNBTData(nbtdata);
+      structureBlueprint = readBlueprintFromNBTData(nbtdata);
       
       createRenderCanvas();
 
       //Create sliders
-      const max_y = structureLitematic.regions[0].blocks[0].length;
+      const max_y = structureBlueprint.regions[0].blocks[0].length;
       createRangeSliders(max_y);
 
-      const blockCounts = getMaterialList(structureLitematic);
+      const blockCounts = getMaterialList(structureBlueprint);
       createMaterialsList(blockCounts);
 
-      setStructure(structureFromLitematic(structureLitematic), reset_view=true);
+      setStructure(structureFromBlueprint(structureBlueprint), reset_view=true);
 
    };
    reader.onerror = function() {
@@ -105,13 +108,13 @@ function createRangeSliders(max_y) {
    minSlider.addEventListener('change', function(e) {
       y_min = e.target.value;
       console.log(y_min);
-      setStructure(structureFromLitematic(structureLitematic, y_min=y_min, y_max=y_max));
+      setStructure(structureFromBlueprint(structureBlueprint, y_min=y_min, y_max=y_max));
    });
 
    maxSlider.addEventListener('change', function(e) {
       y_max = e.target.value;
       console.log(y_max);
-      setStructure(structureFromLitematic(structureLitematic, y_min=y_min, y_max=y_max));
+      setStructure(structureFromBlueprint(structureBlueprint, y_min=y_min, y_max=y_max));
    });
 
    slidersDiv.appendChild(minSlider);
